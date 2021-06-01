@@ -118,6 +118,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
 
     }
 
+
     public void updateTable(){
         table.setModel(this.coolTable);
         scrollPane.setViewportView(table);
