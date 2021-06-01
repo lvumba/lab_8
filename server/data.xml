@@ -1,0 +1,42 @@
+<collection>
+<creation>1618910266335</creation>
+<sort>-1</sort>
+
+<ticket>
+	<id>1</id>
+	<name>Tick</name>
+	<coordinates>0 0.0</coordinates>
+	<creationDate>1618570627350</creationDate>
+	<price>10</price>
+	<discount>15</discount>
+	<comment>no comments</comment>
+	<type>VIP</type>
+
+	<venue>
+		<id>1</id>
+		<name>Детский сад</name>
+		<capacity>26</capacity>
+		<type>LOFT</type>
+	</venue>
+</ticket>
+
+<ticket>
+	<id>2</id>
+	<name>Tick2</name>
+	<coordinates>0 0.0</coordinates>
+	<creationDate>1618570627350</creationDate>
+	<price>40</price>
+	<discount>30</discount>
+	<comment>no comments</comment>
+	<type>VIP</type>
+
+	<venue>
+		<id>1</id>
+		<name>Детский сад</name>
+		<capacity>26</capacity>
+		<type>LOFT</type>
+	</venue>
+</ticket>
+
+
+</collection>
