@@ -32,6 +32,7 @@ public class AddFrame extends JFrame  {
 
 
     public AddFrame(ActionListener actionListener) {
+        this.setTitle("Add new Ticket");
         this.actionListener = actionListener;
         initialize();
         this.setVisible(true);

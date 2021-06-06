@@ -1,21 +1,20 @@
 package com.company.commands;
 
+import com.company.Otvet;
 import com.company.serv.Connect;
 import com.company.serv.Pak;
 
-/*public class AverageOfDiscount implements  Command{
-    @Override
-    public String run(String s) {
-        if (s.contains("average_of_discount") || s.contains("average of discount")) {
-            Pak pak = new Pak();
+public class AverageOfDiscount {
 
-            pak.type = CommandType.AVERAGE_OF_DISCOUNT;
-            Connect.send(pak);
+    public static Otvet run(String login, String password) {
 
-            return "";
-        }
-        return "";
+        Pak pak = new Pak();
+        pak.type = CommandType.AVERAGE_DISCOUNT;
+        pak.login = login;
+        pak.password = password;
+        Connect.send(pak);
+        return Connect.read();
     }
-}*/
+}
 
 

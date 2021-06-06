@@ -27,13 +27,14 @@ public class Computer implements Runnable{
 
         this.security = new Security(new PostgreSQL("logins"));
 
-        this.commands = new Command[6];
+        this.commands = new Command[7];
         commands[0] = new Show();
         commands[1] = new Add();
         commands[2] = new Info(new Date());
         commands[3] = new RemoveById();
         commands[4] = new Update();
         commands[5] = new Clear();
+        commands[6] = new AverageOfDiscount();
 
     }
 

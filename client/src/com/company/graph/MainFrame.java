@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MainFrame extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     String language[] = {"EN", "RU", "UKR", "GER", "ES"};
-    String[] commandsName = new String[] {"Add", "Delete", "Update", "Clear", "Help", "Info"};
+    String[] commandsName = new String[] {"Add", "Delete", "Update", "Clear", "Average of discount",  "Help", "Info"};
     String[] shapka = new String[] {"id", "Name", "X", "Y", "CreationDate", "Price", "Discount", "Comment",
                                     "TicketType", "VenueName", "Capacity", "VenueType", "CrName"};
 
@@ -253,6 +253,10 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
                 else{
                     JOptionPane.showMessageDialog(this, "Выберете билет");
                 }
+            }
+
+            if (commandsBox.getSelectedItem().equals("Average of discount")){
+                JOptionPane.showMessageDialog(this, "" + AverageOfDiscount.run(this.login, this.password).text);
             }
 
 

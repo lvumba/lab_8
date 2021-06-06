@@ -32,6 +32,7 @@ public class UpdateFrame extends JFrame{
         this.actionListener = actionListener;
         this.ticketId = ticketId;
         this.ticketRow = ticketRow;
+        this.setTitle("Update ticket " + ticketId);
 
         initialize();
         this.setVisible(true);
