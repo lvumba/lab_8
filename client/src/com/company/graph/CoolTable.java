@@ -23,6 +23,7 @@ public class CoolTable extends AbstractTableModel {
     String userPsw;
 
     MyPanel panel;
+    int lastRowIndex;
 
     public CoolTable(ArrayList<Ticket> data, String[] shapka, String userNik, String userPsw, MyPanel panel){
         if (shapka.length != width){
@@ -34,6 +35,7 @@ public class CoolTable extends AbstractTableModel {
         this.userNik = userNik;
         this.userPsw = userPsw;
         this.panel = panel;
+        this.lastRowIndex = -1;
 
     }
 
@@ -44,7 +46,6 @@ public class CoolTable extends AbstractTableModel {
     public void delete(int index){
         if (index < data.size() ) {
             data.remove(index);
-
         }
     }
 
@@ -53,23 +54,26 @@ public class CoolTable extends AbstractTableModel {
     public boolean isCellEditable(int rowIndex, int columnIndex) {
 
 
+        if (this.lastRowIndex != rowIndex) {
+            panel.naDan[0] = data.get(rowIndex).getId() + "";
+            panel.naDan[1] = data.get(rowIndex).getName() + "";
+            panel.naDan[2] = data.get(rowIndex).getPrice() + "";
+            panel.naDan[3] = data.get(rowIndex).getDiscount() + "";
+            panel.naDan[4] = data.get(rowIndex).getComment() + "";
+            panel.naDan[5] = data.get(rowIndex).getType() + "";
+            panel.naDan[6] = data.get(rowIndex).getVenue().getName() + "";
+            panel.naDan[7] = data.get(rowIndex).getCreationDate() + "";
+            panel.naDan[8] = data.get(rowIndex).getVenue().getType() + "";
+            panel.naDan[9] = data.get(rowIndex).getVenue().getCapacity() + "";
 
-        panel.naDan[0] = data.get(rowIndex).getId() + "";
-        panel.naDan[1] = data.get(rowIndex).getName() + "";
-        panel.naDan[2] = data.get(rowIndex).getPrice() + "";
-        panel.naDan[3] = data.get(rowIndex).getDiscount() + "";
-        panel.naDan[4] = data.get(rowIndex).getComment() + "";
-        panel.naDan[5] = data.get(rowIndex).getType() + "";
-        panel.naDan[6] = data.get(rowIndex).getVenue().getName() + "";
-        panel.naDan[7] = data.get(rowIndex).getCreationDate() + "";
-        panel.naDan[8] = data.get(rowIndex).getVenue().getType() + "";
-        panel.naDan[9] = data.get(rowIndex).getVenue().getCapacity() + "";
+            panel.Stchetchik = false;
+            panel.Xvector = 5;
+            panel.ax = panel.ax_0;
 
-        panel.Stchetchik = false;
-        panel.Xvector = 5;
-        panel.ax = panel.ax_0;
+        }
 
-        return (columnIndex != 12) && (columnIndex != 0) && (columnIndex != 4);
+        this.lastRowIndex = rowIndex;
+        return (columnIndex != 12) && (columnIndex != 0) && (columnIndex != 4) && (data.get(rowIndex).getCreatorName().equals(this.userNik));
     }
 
     @Override
@@ -101,11 +105,14 @@ public class CoolTable extends AbstractTableModel {
         }
 
         try {
+            boolean anim = false;
             switch (columnIndex) {
                 case 0:
                     break;
                 case 1:
                     data.get(rowIndex).setName(value.toString());
+                    panel.naDan[1] = value.toString();
+                    anim = true;
                     break;
                 case 2:
                     data.get(rowIndex).getCoordinates().setX(Long.parseLong(value.toString()));
@@ -117,27 +124,47 @@ public class CoolTable extends AbstractTableModel {
                     break;
                 case 5:
                     data.get(rowIndex).setPrice(Integer.parseInt(value.toString()));
+                    panel.naDan[2] = value.toString();
+                    anim = true;
                     break;
                 case 6:
                     data.get(rowIndex).setDiscount(Long.parseLong(value.toString()));
+                    panel.naDan[3] = value.toString();
+                    anim = true;
                     break;
                 case 7:
                     data.get(rowIndex).setComment(value.toString());
+                    panel.naDan[4] = value.toString();
+                    anim = true;
                     break;
                 case 8:
                     data.get(rowIndex).setType(TicketType.valueOf(value.toString()));
+                    panel.naDan[5] = value.toString();
+                    anim = true;
                     break;
                 case 9:
                     data.get(rowIndex).getVenue().setName(value.toString());
+                    panel.naDan[6] = value.toString();
+                    anim = true;
                     break;
                 case 10:
                     data.get(rowIndex).getVenue().setCapacity(Integer.parseInt(value.toString()));
+                    panel.naDan[9] = value.toString();
+                    anim = true;
                     break;
                 case 11:
                     data.get(rowIndex).getVenue().setType(VenueType.valueOf(value.toString()));
+                    panel.naDan[8] = value.toString();
+                    anim = true;
                     break;
                 case 12:
                     break;
+            }
+
+            if (anim) {
+                panel.Stchetchik = false;
+                panel.Xvector = 5;
+                panel.ax = panel.ax_0;
             }
 
 

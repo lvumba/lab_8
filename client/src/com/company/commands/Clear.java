@@ -1,25 +1,26 @@
 package com.company.commands;
 
+import com.company.Otvet;
 import com.company.serv.Connect;
 import com.company.serv.Pak;
 
 import java.util.LinkedList;
 
-/*public class Clear implements Command {
-    @Override
-    public String run(String s) {
+public class Clear  {
 
-        if (s.contains("clear")) {
-            Pak pak = new Pak();
-
-            pak.type = CommandType.CLEAR;
-            Connect.send(pak);
+    public static Otvet run(String login, String password) {
 
 
-            return "";
-        }
-        return "";
+        Pak pak = new Pak();
+        pak.type = CommandType.CLEAR;
+        pak.login = login;
+        pak.password = password;
+
+        Connect.send(pak);
+        return Connect.read();
+
+
     }
-}*/
+}
 
 

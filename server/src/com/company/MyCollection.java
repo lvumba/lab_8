@@ -136,4 +136,14 @@ public class MyCollection {
         return o;
 
     }
+
+    public String clear(String login){
+        if (database.clear(login)){
+            this.collection = database.show();
+            return "Нужные билеты удалены";
+        }
+        else{
+            return "Не получилось удалить билеты " + login + " из базы данных";
+        }
+    }
 }

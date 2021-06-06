@@ -1,9 +1,7 @@
 package com.company.graph;
 
 import com.company.*;
-import com.company.commands.Add;
-import com.company.commands.RemoveById;
-import com.company.commands.Show;
+import com.company.commands.*;
 import com.company.serv.Connect;
 
 import javax.swing.*;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 public class MainFrame extends JFrame implements ActionListener, KeyListener {
 
     String language[] = {"EN", "RU", "UKR", "GER", "ES"};
-    String[] commandsName = new String[] {"Add", "Delete", "Update", "Clear", "Help", "Info"};
+    String[] commandsName = new String[] {"Add", "Delete", "Clear", "Help", "Info"};
     String[] shapka = new String[] {"id", "Name", "X", "Y", "CreationDate", "Price", "Discount", "Comment",
                                     "TicketType", "VenueName", "Capacity", "VenueType", "CrName"};
 
@@ -206,17 +204,43 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
                 int index = table.getSelectedRow();
                 if ((index != -1) && (coolTable.getValueAt(index, 12).equals(login))){
 
-                    RemoveById.run((long) coolTable.getValueAt(index, 0), this.login, this.password);
+                    System.out.println(RemoveById.run((long) coolTable.getValueAt(index, 0), this.login, this.password).text);
                     coolTable.delete(index);
                     updateTableWithServer();
                     tableOptions();
-                    //updateTable();
+
                 }
+            }
+            if (commandsBox.getSelectedItem().equals("Help")){
+                JOptionPane.showMessageDialog(this, "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n" +
+                        "show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении\n" +
+                        "add {element} : добавить новый элемент в коллекцию\n" +
+                        "update id {element} : обновить значение элемента коллекции, id которого равен заданному\n" +
+                        "remove_by_id id : удалить элемент из коллекции по его id\n" +
+                        "clear : очистить коллекцию\n" +
+                        "save : сохранить коллекцию в файл\n" +
+                        "execute_script file_name : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.\n" +
+                        "exit : завершить программу (без сохранения в файл)\n" +
+                        "remove_head : вывести первый элемент коллекции и удалить его\n" +
+                        "add_if_max {element} : добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции\n" +
+                        "remove_lower {element} : удалить из коллекции все элементы, меньшие, чем заданный\n" +
+                        "remove_all_by_minimal_point minimalPoint : удалить из коллекции все элементы, значение поля minimalPoint которого эквивалентно заданному\n" +
+                        "min_by_author : вывести любой объект из коллекции, значение поля author которого является минимальным\n" +
+                        "count_less_than_minimal_point minimalPoint : вывести количество элементов, значение поля minimalPoint которых меньше заданного\n");
 
             }
-            if (commandsBox.getSelectedItem().equals("Update")){
-                new MainFrame("puppa", "123");
+            if (commandsBox.getSelectedItem().equals("Info")){
+                JOptionPane.showMessageDialog(this, Info.run(this.login, this.password).text);
 
+            }
+
+            if (commandsBox.getSelectedItem().equals("Clear")){
+                if (JOptionPane.showConfirmDialog(this, "Вы уверены? Эта команда удалит все ваши билеты") == 0){
+                    System.out.println(Clear.run(this.login, this.password).text);
+                    updateTableWithServer();
+                    tableOptions();
+
+                }
 
             }
 

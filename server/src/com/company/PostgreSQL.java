@@ -170,7 +170,7 @@ public class PostgreSQL {
 
     public boolean remove(long id){
         //String request = "DELETE FROM " + this.tableName + " WHERE 1 = " + id;
-        String request  = "DELETE from " +this.tableName + " WHERE id=?";
+        String request  = "DELETE from " + this.tableName + " WHERE id=?";
         try {
             PreparedStatement statement = connection.prepareStatement(request);
             statement.setLong(1,id);
@@ -186,16 +186,20 @@ public class PostgreSQL {
     }
 
 
-    public void clear(){
-        String request  = "TRUNCATE TABLE tti";
+    public boolean clear(String login){
+        String request  = "DELETE from " + this.tableName + " WHERE creatorname=?";
         try {
             PreparedStatement statement = connection.prepareStatement(request);
+            statement.setString(1, login);
             statement.executeUpdate();
             statement.close();
-
-        } catch (SQLException e) {
+            return true;
+        } catch (PSQLException e){
             e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+        return false;
     }
 
     public boolean update(long id, Ticket ticket){

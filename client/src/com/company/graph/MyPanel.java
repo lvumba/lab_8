@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class MyPanel extends JPanel implements ActionListener {
 
     final int PANEL_WIDTH = 989;
-    final int PANEL_HEIGHT = 310;
+    final int PANEL_HEIGHT = 295;
 
     String language[] = {"EN", "RU", "UKR", "GER", "ES"};
 
@@ -48,9 +48,9 @@ public class MyPanel extends JPanel implements ActionListener {
 
         this.comboLanguage = comboLanguage;
 
-        this.setBounds(0, 40, PANEL_WIDTH, PANEL_HEIGHT);
+        this.setBounds(0, 50, PANEL_WIDTH, PANEL_HEIGHT);
         //this.setBackground(new Color(0xFF0000FF, true));
-        enemy = new ImageIcon("D:/ИТМО/Programming/programs_2_sem/lab_7/client/src/com/company/graph/3.png").getImage();
+        enemy = new ImageIcon("D:/ИТМО/Programming/programs_2_sem/lab_8/client/src/com/company/graph/3.png").getImage();
         timer = new Timer(1, this);
         timer.start();
 
