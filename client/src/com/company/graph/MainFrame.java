@@ -3,20 +3,18 @@ package com.company.graph;
 import com.company.*;
 import com.company.commands.*;
 import com.company.serv.Connect;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
-public class MainFrame extends JFrame implements ActionListener, KeyListener {
+public class MainFrame extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     String language[] = {"EN", "RU", "UKR", "GER", "ES"};
-    String[] commandsName = new String[] {"Add", "Delete", "Clear", "Help", "Info"};
+    String[] commandsName = new String[] {"Add", "Delete", "Update", "Clear", "Help", "Info"};
     String[] shapka = new String[] {"id", "Name", "X", "Y", "CreationDate", "Price", "Discount", "Comment",
                                     "TicketType", "VenueName", "Capacity", "VenueType", "CrName"};
 
@@ -31,6 +29,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
 
     JButton activate = new JButton("");
     AddFrame addFrame;
+    UpdateFrame updateFrame;
 
     JScrollPane scrollPane = new JScrollPane();
     JTable table = new JTable(coolTable);
@@ -78,6 +77,8 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
         table.getColumnModel().getColumn(12).setPreferredWidth(94);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
+        //System.out.println(table.getValueAt(0, 12));
+
         table.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer(this.login));
         table.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer(this.login));
         table.getColumnModel().getColumn(2).setCellRenderer(new CellRenderer(this.login));
@@ -98,9 +99,11 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
 
     public void updateTableWithServer(){
 
+
         Otvet otvet = Show.run(this.login, this.password);
 
         ArrayList<Ticket> tickets = otvet.tickets;
+
 
         this.coolTable = new CoolTable(tickets, this.shapka, this.login, this.password, panel);
         table.setModel(this.coolTable);
@@ -136,6 +139,8 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
         activate.addActionListener(this);
         commandsBox.addActionListener(this);
         this.addKeyListener(this);
+        this.addMouseListener(this);
+
     }
 
     public void addComponent(){
@@ -159,7 +164,6 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
 
 
 
-
         this.setBounds(100, 100, 989, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setLayout(null);
@@ -180,14 +184,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
         addComponent();
 
 
-
-
-
-
-
         this.setVisible(true);
-
-
 
 
     }
@@ -244,81 +241,33 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
 
             }
 
+            if (commandsBox.getSelectedItem().equals("Update")){
+                int index = table.getSelectedRow();
+                if (index != -1){
+                    if (table.getValueAt(index, 12).equals(this.login)) {
+                        this.updateFrame = new UpdateFrame(this, (long) coolTable.getValueAt(index, 0), index);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Вы не можете редактировать чужой билет");
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Выберете билет");
+                }
+            }
+
 
         }
         if (addFrame != null) {
             if (e.getSource() == addFrame.getButton()) {
                 //Нажата 'ok', можно получить список строк addFrame.getText()
                 //Name, X, Y,  Price, Discount, Comment, TicketType, VenueName, VenueCapacity, VenueType
-                String[] str = addFrame.getTexts();
 
-                String name;
-                Long x;
-                float y;
-                Integer price;
-                Long discount;
-                String comment;
-                TicketType ticketType;
-                String venueName;
-                Integer venueCapacity;
-                VenueType venueType;
-
-                name = str[0];
-
+                Ticket ticket;
                 try {
-                    x = Long.parseLong(str[1]);
-                } catch (IllegalArgumentException exception) {
-                    JOptionPane.showMessageDialog(this, "Введите корректное значение x");
+                    ticket = GetTicketFromFrame.getTicket(this, addFrame);
+                }catch (ValueException exception){
                     return;
                 }
-
-                try{
-                    y = Float.parseFloat(str[2]);
-                }catch (IllegalArgumentException exception){
-                    JOptionPane.showMessageDialog(this, "Введите корректное значение y");
-                    return;
-                }
-                try{
-                    price = Integer.parseInt(str[3]);
-                }catch (IllegalArgumentException exception){
-                    JOptionPane.showMessageDialog(this, "Введите корректное значение Price");
-                    return;
-                }
-
-                try{
-                    discount = Long.parseLong(str[4]);
-                }catch (IllegalArgumentException exception){
-                    JOptionPane.showMessageDialog(this, "Введите корректное значение Discount");
-                    return;
-                }
-
-                comment = str[5];
-
-                try{
-                    ticketType = TicketType.valueOf(str[6]);
-                }catch (IllegalArgumentException exception){
-                    JOptionPane.showMessageDialog(this, "Введите корректное значение TicketType");
-                    return;
-                }
-
-                venueName = str[7];
-
-                try{
-                    venueCapacity = Integer.parseInt(str[8]);
-                }catch (IllegalArgumentException exception){
-                    JOptionPane.showMessageDialog(this, "Введите корректное значение VenueCapacity");
-                    return;
-                }
-
-                try{
-                    venueType = com.company.VenueType.valueOf(str[9]);
-                }catch (IllegalArgumentException exception){
-                    JOptionPane.showMessageDialog(this, "Введите корректное значение VenueType");
-                    return;
-                }
-
-                Ticket ticket = new Ticket(name, new Coordinates(x, y), price, discount, comment, ticketType,
-                                           new Venue(venueName, venueCapacity,venueType));
 
                 System.out.println(Add.run(ticket, this.login, this.password).text);
 
@@ -326,9 +275,28 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
                 tableOptions();
                 addFrame.dispose();
 
+            }
+        }
+        if (updateFrame != null){
+            if (e.getSource() == updateFrame.getButton()){
+
+                Ticket ticket;
+                try {
+                    ticket = GetTicketFromFrame.getTicket(this, updateFrame);
+                }catch (ValueException exception){
+                    return;
+                }
+
+
+                System.out.println(UpdateId.run(updateFrame.ticketId, ticket, this.login, this.password).text);
+
+                updateTableWithServer();
+                tableOptions();
+                updateFrame.dispose();
+
+                table.isCellEditable( updateFrame.ticketRow, 0);
 
             }
-
         }
     }
 
@@ -346,4 +314,41 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener {
 
         }
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+
+        int x = e.getX();
+        int y = e.getY();
+
+        if ((e.getClickCount() == 2) && ( ((8  + panel.PANEL_X + panel.x <= x)&&(x <= 8  + panel.PANEL_X + panel.x + panel.IMAGE_WIDTH)) &&
+                                          ((31 + panel.PANEL_Y + panel.y <= y)&&(y <= 31 + panel.PANEL_Y + panel.y + panel.IMAGE_HEIGHT)) ) ){
+
+
+            int index = table.getSelectedRow();
+
+            if (index != -1) {
+                if (table.getValueAt(index, 12).equals(this.login)){
+                    this.updateFrame = new UpdateFrame(this, (long) coolTable.getValueAt(index, 0), index);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Вы не можете редактировать чужой билет");
+                }
+
+            }
+
+
+        }
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) { }
+    @Override
+    public void mouseReleased(MouseEvent e) { }
+    @Override
+    public void mouseEntered(MouseEvent e) { }
+    @Override
+    public void mouseExited(MouseEvent e) { }
 }

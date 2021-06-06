@@ -22,10 +22,6 @@ public class Show  {
         otvet = Connect.read();
 
 
-
-
-
-
         return otvet;
     }
 }

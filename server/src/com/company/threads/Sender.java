@@ -17,7 +17,7 @@ public class Sender extends RecursiveTask<String> {
     protected String compute() {
         try {
             objectOutputStream.writeObject(otvetNow);
-            System.out.println(otvetNow.text);
+            System.out.println(otvetNow.tickets);
             System.out.println("Отправил\n");
         } catch (IOException e) {
             e.printStackTrace();

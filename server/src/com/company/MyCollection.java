@@ -131,7 +131,13 @@ public class MyCollection {
     public ArrayList<Ticket> getCollection() {
         ArrayList<Ticket> o = new ArrayList<Ticket>();
         for (Ticket t: this.collection){
-            o.add(t);
+            Ticket tt = new Ticket(t.getName(), new Coordinates(t.getCoordinates().getX(), t.getCoordinates().getY()),
+                                   t.getPrice(), t.getDiscount(), t.getComment(), t.getType(),
+                                   new Venue(t.getVenue().getName(), t.getVenue().getCapacity(), t.getVenue().getType()));
+
+            tt.setId(t.getId());
+            tt.setCreatorName(t.getCreatorName());
+            o.add(tt);
         }
         return o;
 
