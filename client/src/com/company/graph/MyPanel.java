@@ -90,16 +90,16 @@ public class MyPanel extends JPanel implements ActionListener {
 
         g1d.setFont(new Font("Arial", Font.BOLD, 17));
         g1d.setColor(Color.white);
-        g1d.drawString(dann[0], x + 48, y + 140);
-        g1d.drawString(dann[1], x + 185, y + 140);
-        g1d.drawString(dann[2], x + 310, y + 140);
-        g1d.drawString(dann[3], x + 430, y + 140);
-        g1d.drawString(dann[4], x + 570, y + 140);
-        g1d.drawString(dann[5], x + 55, y + 205);
-        g1d.drawString(dann[6], x + 185, y + 205);
+        g1d.drawString(Obrezanie.obr(dann[0]), x + 48, y + 140);
+        g1d.drawString(Obrezanie.obr(dann[1]), x + 185, y + 140);
+        g1d.drawString(Obrezanie.obr(dann[2]), x + 310, y + 140);
+        g1d.drawString(Obrezanie.obr(dann[3]), x + 430, y + 140);
+        g1d.drawString(Obrezanie.obr(dann[4], 15), x + 570, y + 140);
+        g1d.drawString(Obrezanie.obr(dann[5]), x + 55, y + 205);
+        g1d.drawString(Obrezanie.obr(dann[6]), x + 185, y + 205);
         g1d.drawString(dann[7], x + 286, y + 205);
-        g1d.drawString(dann[8], x + 440, y + 205);
-        g1d.drawString(dann[9], x + 570, y + 205);
+        g1d.drawString(Obrezanie.obr(dann[8]), x + 440, y + 205);
+        g1d.drawString(Obrezanie.obr(dann[9]), x + 570, y + 205);
         g1d.drawString(Languages.getCOMMANDS() + ":", X0 = 20, y + 490);
     }
 

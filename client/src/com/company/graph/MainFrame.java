@@ -179,6 +179,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
         this.password = password;
 
         this.setFocusable(true);
+        this.setResizable(false);
 
 
 
@@ -200,8 +201,6 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
         colorize();
         addAction();
         addComponent();
-
-
 
 
         this.setVisible(true);
@@ -229,6 +228,11 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
                     coolTable.delete(index);
                     updateTableWithServer();
                     tableOptions();
+
+                    panel.naDan = new String[] {"---","--------","------","--------","----------","----","-------","---------------","-----","------"};
+                    panel.Stchetchik = false;
+                    panel.Xvector = 5;
+                    panel.ax = panel.ax_0;
 
                 }
             }
