@@ -1,5 +1,5 @@
 package com.company.graph;
-import java.awt.EventQueue;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,13 +28,15 @@ public class AddFrame extends JFrame  {
 
     ActionListener actionListener;
 
-
+    Color fon = new Color(0, 71, 210, 255);
+    Color textColor = new Color(255, 255, 255, 255);
 
 
     public AddFrame(ActionListener actionListener) {
         this.setTitle("Add new Ticket");
         this.actionListener = actionListener;
         initialize();
+        this.getContentPane().setBackground(fon);
         this.setVisible(true);
 
     }
@@ -66,49 +68,56 @@ public class AddFrame extends JFrame  {
         this.setBounds(100, 100, 364, 468);
 
 
-
-
-
         this.getContentPane().setLayout(null);
 
         JLabel lblNewLabel = new JLabel("Name");
         lblNewLabel.setBounds(84, 26, 60, 14);
+        lblNewLabel.setForeground(textColor);
         this.getContentPane().add(lblNewLabel);
 
         JLabel lblNewLabel_1 = new JLabel("X");
         lblNewLabel_1.setBounds(84, 57, 60, 14);
+        lblNewLabel_1.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_1);
 
         JLabel lblNewLabel_2 = new JLabel("Y");
         lblNewLabel_2.setBounds(84, 88, 60, 14);
+        lblNewLabel_2.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_2);
 
         JLabel lblNewLabel_1_1 = new JLabel("Price");
         lblNewLabel_1_1.setBounds(84, 119, 60, 14);
+        lblNewLabel_1_1.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_1_1);
 
         JLabel lblNewLabel_3 = new JLabel("Discount");
         lblNewLabel_3.setBounds(84, 150, 60, 14);
+        lblNewLabel_3.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_3);
 
         JLabel lblNewLabel_1_2 = new JLabel("Comment");
         lblNewLabel_1_2.setBounds(84, 181, 60, 14);
+        lblNewLabel_1_2.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_1_2);
 
         JLabel lblNewLabel_2_1 = new JLabel("TicketType");
-        lblNewLabel_2_1.setBounds(84, 212, 60, 14);
+        lblNewLabel_2_1.setBounds(84, 212, 68, 14);
+        lblNewLabel_2_1.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_2_1);
 
         JLabel lblNewLabel_1_1_1 = new JLabel("VenueName");
-        lblNewLabel_1_1_1.setBounds(84, 243, 60, 14);
+        lblNewLabel_1_1_1.setBounds(84, 243, 72, 14);
+        lblNewLabel_1_1_1.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_1_1_1);
 
         JLabel lblNewLabel_3_1 = new JLabel("Capacity");
         lblNewLabel_3_1.setBounds(84, 274, 60, 14);
+        lblNewLabel_3_1.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_3_1);
 
         JLabel lblNewLabel_1_2_1 = new JLabel("VenueType");
-        lblNewLabel_1_2_1.setBounds(84, 305, 60, 14);
+        lblNewLabel_1_2_1.setBounds(84, 305, 68, 14);
+        lblNewLabel_1_2_1.setForeground(textColor);
         this.getContentPane().add(lblNewLabel_1_2_1);
 
         //Расположение и размер кнопок
@@ -157,7 +166,7 @@ public class AddFrame extends JFrame  {
         this.getContentPane().add(textField_8);
 
         btnNewButton = new JButton("ok");
-        btnNewButton.setBounds(114, 336, 89, 23);
+        btnNewButton.setBounds(114, 356, 89, 23);
         btnNewButton.addActionListener(actionListener);
         this.getContentPane().add(btnNewButton);
     }

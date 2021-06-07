@@ -14,11 +14,15 @@ import java.util.ArrayList;
 public class MainFrame extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     String language[] = {"EN", "RU", "UKR", "GER", "ES"};
-    String[] commandsName = new String[] {"Add", "Delete", "Update", "Clear", "Average of discount",  "Help", "Info"};
+    String[] commandsName = new String[] {"Add", "Delete", "Update", "Clear", "Average of discount",  "Help", "Info",
+                                          "Min by date", "Print ascending", "Remove greater", "Remove lower"};
+
     String[] shapka = new String[] {"id", "Name", "X", "Y", "CreationDate", "Price", "Discount", "Comment",
                                     "TicketType", "VenueName", "Capacity", "VenueType", "CrName"};
 
+    Color fon = new Color(0, 71, 210, 255);
 
+    ImageIcon exit = new ImageIcon("D:/ИТМО/Programming/programs_2_sem/lab_8/client/src/com/company/graph/exit.png");
 
     CoolTable coolTable;
 
@@ -28,6 +32,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
     MyPanel panel = new MyPanel(comboBox);
 
     JButton activate = new JButton("");
+    JButton vix = new JButton(exit);
     AddFrame addFrame;
     UpdateFrame updateFrame;
 
@@ -50,11 +55,13 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
         comboBox.setBounds(912, 530, 51, 28);
         commandsBox.setBounds(10, 530, 152, 28);
 
-        nik.setBounds(10, 11, 67, 20);
+        nik.setBounds(10, 11, 300, 27);
         text.setBounds(10, 509, 80, 20);
 
         activate.setBounds(172, 530, 28, 28);
         scrollPane.setBounds(10, 380, 963, 118);
+
+        vix.setBounds(928,10, 25, 25);
 
 
 
@@ -93,6 +100,8 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
         table.getColumnModel().getColumn(11).setCellRenderer(new CellRenderer(this.login));
         table.getColumnModel().getColumn(12).setCellRenderer(new CellRenderer(this.login));
 
+
+
         //table.setGridColor(Color.BLACK);
 
     }
@@ -128,18 +137,26 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
 
     public void options(){
         commandsBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        nik.setFont(new Font("Tahoma", Font.PLAIN, 22));
     }
 
     public void colorize(){
-        this.setBackground(new Color(255, 255, 255));
-        table.setBackground(new Color(255, 255, 255));
-        panel.setBackground(new Color(255, 255, 255));
+        this.getContentPane().setBackground(this.fon);
+        //panel.setBackground(new Color(28, 51, 224));
+        panel.setBackground(fon);
+
+        nik.setForeground(new Color(255,255,255));
+        text.setForeground(new Color(255,255,255));
     }
     public void addAction(){
         activate.addActionListener(this);
         commandsBox.addActionListener(this);
         this.addKeyListener(this);
         this.addMouseListener(this);
+
+        vix.addActionListener(this);
+        vix.setVisible(true);
+        vix.setLayout(null);
 
     }
 
@@ -152,6 +169,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
         this.add(activate);
         this.add(scrollPane);
         this.getContentPane().add(panel);
+        this.add(vix);
 
 
     }
@@ -184,6 +202,8 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
         addComponent();
 
 
+
+
         this.setVisible(true);
 
 
@@ -193,6 +213,10 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == vix){
+            new LoginFrame();
+            this.dispose();
+        }
         if (e.getSource() == activate) {
             if (commandsBox.getSelectedItem().equals("Add")) {
                 addFrame = new AddFrame(this);
@@ -258,6 +282,21 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener, Mo
             if (commandsBox.getSelectedItem().equals("Average of discount")){
                 JOptionPane.showMessageDialog(this, "" + AverageOfDiscount.run(this.login, this.password).text);
             }
+
+
+            if (commandsBox.getSelectedItem().equals("Min by date")){
+                JOptionPane.showMessageDialog(this, "Команда находится на стадии разработки");
+            }
+            if (commandsBox.getSelectedItem().equals("Print ascending")){
+                JOptionPane.showMessageDialog(this, "Команда находится на стадии разработки");
+            }
+            if (commandsBox.getSelectedItem().equals("Remove greater")){
+                JOptionPane.showMessageDialog(this, "Команда находится на стадии разработки");
+            }
+            if (commandsBox.getSelectedItem().equals("Remove lower")){
+                JOptionPane.showMessageDialog(this, "Команда находится на стадии разработки");
+            }
+
 
 
         }

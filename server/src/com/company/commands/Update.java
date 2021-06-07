@@ -20,6 +20,8 @@ public class Update implements Command{
         Otvet otvet = new Otvet();
         otvet.text = myCollection.update(pak.id, pak);
 
+        System.out.println("В команде update " + otvet.text);
+
         return otvet;
 
 

@@ -25,7 +25,7 @@ public class MyPanel extends JPanel implements ActionListener {
 
 
 
-    String[] dann = new String[] {"---","---","---","---","---","---","---","---","---","---"};
+    String[] dann = new String[] {"---","--------","------","--------","----------","----","-------","---------------","-----","------"};
     String[] naDan = new String[] {"---","---","---","---","---","---","---","---","---","---"};
 
 
@@ -90,7 +90,7 @@ public class MyPanel extends JPanel implements ActionListener {
 
         g1d.setFont(new Font("Arial", Font.BOLD, 17));
         g1d.setColor(Color.white);
-        g1d.drawString(dann[0], x + 40, y + 140);
+        g1d.drawString(dann[0], x + 48, y + 140);
         g1d.drawString(dann[1], x + 185, y + 140);
         g1d.drawString(dann[2], x + 310, y + 140);
         g1d.drawString(dann[3], x + 430, y + 140);
